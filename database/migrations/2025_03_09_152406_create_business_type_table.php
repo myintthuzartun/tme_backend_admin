@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('business_types', function (Blueprint $table) {
+        Schema::create('business_type', function (Blueprint $table) {
             $table->id(); // Auto-incrementing primary key
-            $table->string('business_name')->unique(); // Store business type name, should be unique
+            $table->string('business_name_en')->nullable();  
+            $table->string('business_name_myan')->nullable();  
+            $table->string('business_name_thai')->nullable();  
             $table->timestamps(); // Created_at and updated_at timestamps
         });
     }

@@ -2,47 +2,49 @@
 
 namespace App\Models;
 
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
+use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $fillable = [
-         'email', 'password', 'level', 'type',
+        'name',
+        'email',
+        'password',
     ];
 
     /**
-     * Get the identifier that will be stored in the JWT token.
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
      */
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
-
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+    public $timestamps = false;
     /**
-     * Return a key-value array, containing any custom claims to be added to the JWT.
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
      */
-    public function getJWTCustomClaims()
-    {
-        return [];
-    }
-    // User can have one Vendor Account
-    public function vendor(): HasOne
-    {
-        return $this->hasOne(Vendor::class, 'v_id');
-    }
-    // If one user can have multiple vendors
-    public function vendors(): HasMany
-    {
-        return $this->hasMany(Vendor::class, 'v_id');
-    }
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    public function adminProfile()
+{
+    return $this->hasOne(AdminProfile::class);
+}
+
 }

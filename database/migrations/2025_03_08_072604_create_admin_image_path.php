@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('business_types', function (Blueprint $table) {
+        Schema::create('admin_image_path', function (Blueprint $table) {
             $table->id();
-            $table->string('business_name');
+            $table->string('image_path');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('business_types');
+        Schema::dropIfExists('image_path');
     }
 };

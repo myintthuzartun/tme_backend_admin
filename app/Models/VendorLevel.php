@@ -9,13 +9,17 @@ class VendorLevel extends Model
 {
     use HasFactory;
 
-    // Define the table name (optional if it follows Laravel's naming convention)
     protected $table = 'vendor_level';
 
-    // Define fillable fields for mass assignment
     protected $fillable = [
-        'vendor_level',
-        'level_description',
-        'benefits',
+        'level_en',
+        'level_myan',
+        'level_thai',
+        'level_description_en',
+        'level_description_myan',
+        'level_description_thai',
+        'benefits_en',
+        'benefits_myan',
+        'benefits_thai',
     ];
 }
